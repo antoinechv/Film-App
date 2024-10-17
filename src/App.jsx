@@ -46,40 +46,50 @@ const App = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-10">
-      <h1>TV Shows</h1>
+    <div className="flex flex-col items-center gap-10 bg-darkBlack p-4 min-h-screen h-full">
+      <h1 className="flex w-full ">
+        <img src="/logo.svg" alt="" />
+      </h1>
+      <h2 className="text-white">Find Movies, Tv series, and more..</h2>
 
       <form
         onSubmit={handleSearchSubmit}
-        className="flex w-full max-w-sm items-center  gap-5"
+        className="flex w-full max-w-sm items-center gap-5"
       >
         <Input
           type="text"
           placeholder="Search for a TV show..."
           value={searchQuery}
           onChange={handleSearchChange}
+          className="w-full text-yellow-100 placeholder:text-yellow-100 bg-black border-none rounded-3xl"
         />
-        <Button type="submit">Search</Button>
+        <Button type="submit" className="bg-yellow-100 text-black  rounded-3xl">
+          Search
+        </Button>
       </form>
 
-      <Carousel
-        opts={{
-          align: "start",
-        }}
-        className=" w-full max-w-xl"
-      >
-        <CarouselContent>
-          {films.map((film) => (
-            <div key={film.id} onClick={() => handleFilmClick(film)}>
-              <CarouselItem className="md:basis-1/2 lg:basis-1/3 h-full">
+      <div className="carousel-wrapper w-full max-w-xl relative">
+        <Carousel
+          opts={{
+            align: "start",
+          }}
+          className="w-full max-w-2xl"
+        >
+          <CarouselContent>
+            {films.map((film) => (
+              <CarouselItem
+                key={film.id}
+                onClick={() => handleFilmClick(film)}
+                className=" flex "
+              >
                 <FilmCard film={film} />
               </CarouselItem>
-            </div>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="hidden md:flex " />
+          <CarouselNext className="hidden  md:flex" />
+        </Carousel>
+      </div>
 
       {selectedFilm && <FilmDescription film={selectedFilm} />}
     </div>
