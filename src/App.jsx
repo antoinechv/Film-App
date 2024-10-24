@@ -15,19 +15,6 @@ const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFilmLoading, setIsFilmLoading] = useState(false);
 
-  // Loader state to control its visibility
-  const [showLoader, setShowLoader] = useState(true);
-
-  // Simulation of a 3x animation duration (you can adjust the duration)
-  useEffect(() => {
-    const loaderDuration = 1300 * 1; // 4000ms per animation x 3 for 3 repetitions
-    const timer = setTimeout(() => {
-      setShowLoader(false);
-    }, loaderDuration);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const {
     data: dataShearch,
     isLoading: isLoadingSearch,
@@ -46,9 +33,6 @@ const App = () => {
     error: errorSeasons,
   } = useFetch(`https://api.tvmaze.com/shows/${idFilm}?embed=episodes`);
 
-  if (showLoader) {
-    return <Loader />; // Display loader while loading
-  }
   useEffect(() => {
     if (!isLoadingSeasons) {
       setIsFilmLoading(false);
@@ -56,7 +40,7 @@ const App = () => {
   }, [isLoadingSeasons]);
 
   if (isLoadingSearch) {
-    return <div>Loading search results...</div>;
+    return <Loader />;
   }
 
   if (errorSearch) {
@@ -102,74 +86,23 @@ const App = () => {
       </h1>
       <h2 className="text-white">Find Movies, TV series, and more..</h2>
 
-      <form
-        onSubmit={handleSearchSubmit}
-        className="flex w-full max-w-sm items-center gap-5"
-      >
-        <Input
-          type="text"
-          placeholder="Search for a TV show..."
-          value={searchQuery}
-          onChange={handleSearchChange}
-          className="w-full text-yellow-100 placeholder:text-yellow-100 bg-black border-none rounded-3xl"
-        />
-        <Button
-          type="submit"
-          className="border-yellow-100 hover:bg-yellow-100 hover:text-black text-yellow-100 rounded-3xl"
-        >
-          Search
-        </Button>
-      </form>
+      <SearchForm
+        searchQuery={searchQuery}
+        handleSearchChange={handleSearchChange}
+        handleSearchSubmit={handleSearchSubmit}
+      />
 
-      <div className="carousel-wrapper w-full max-w-xl relative flex flex-col gap-4">
-        <h2 className="text-white text-left">
-          Les dernières recherches en FRANCE
-        </h2>
-        <Carousel
-          opts={{
-            align: "start",
-          }}
-          className="w-full max-w-2xl"
-        >
-          <CarouselContent>
-            {filmsSchudle.map((film, index) => (
-              <CarouselItem
-                key={`schedule-${film.id}-${index}`}
-                onClick={() => handleFilmClick(film)}
-                className="flex"
-              >
-                <FilmCard film={film} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="hidden md:flex" />
-          <CarouselNext className="hidden md:flex" />
-        </Carousel>
-      </div>
+      <FilmCarousel
+        title="Les dernières recherches en FRANCE"
+        films={filmsSchudle}
+        handleFilmClick={handleFilmClick}
+      />
 
-      <div className="carousel-wrapper w-full max-w-xl relative">
-        <Carousel
-          opts={{
-            align: "start",
-          }}
-          className="w-full max-w-2xl"
-        >
-          <CarouselContent>
-            {filmsSearch.map((film, index) => (
-              <CarouselItem
-                key={`search-${film.id}-${index}`}
-                onClick={() => handleFilmClick(film)}
-                className="flex"
-                id={film.id}
-              >
-                <FilmCard film={film} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="hidden md:flex" />
-          <CarouselNext className="hidden md:flex" />
-        </Carousel>
-      </div>
+      <FilmCarousel
+        title="Search Results"
+        films={filmsSearch}
+        handleFilmClick={handleFilmClick}
+      />
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         {isFilmLoading ? (
