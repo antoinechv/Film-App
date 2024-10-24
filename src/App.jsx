@@ -14,6 +14,7 @@ const App = () => {
   const [selectedSeason, setSelectedSeason] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFilmLoading, setIsFilmLoading] = useState(false);
+  const [showLastSearchCarousel, setShowLastSearchCarousel] = useState(true);
 
   // Loader state to control its visibility
   const [showLoader, setShowLoader] = useState(true);
@@ -87,6 +88,7 @@ const App = () => {
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     setSubmittedQuery(searchQuery);
+    setShowLastSearchCarousel(false);
   };
   const handleLogoClick = () => {
     window.location.reload();
@@ -105,11 +107,13 @@ const App = () => {
         />
       </div>
 
-      <FilmCarousel
-        title="Les dernières recherches en FRANCE"
-        films={filmsSchudle}
-        handleFilmClick={handleFilmClick}
-      />
+      {showLastSearchCarousel && (
+        <FilmCarousel
+          title="Les dernières recherches en FRANCE"
+          films={filmsSchudle}
+          handleFilmClick={handleFilmClick}
+        />
+      )}
 
       <FilmCarousel
         title="Search Results"
