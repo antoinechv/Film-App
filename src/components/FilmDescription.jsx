@@ -73,7 +73,7 @@ const FilmDescription = ({
           </button>
         </div>
 
-        <div className="border-y-2 py-4 flex flex-col gap-4">
+        <div className=" border-y-[0.5px] border-lightGrey py-4 flex flex-col gap-4">
           <div className="flex items-center gap-2">
             <p>{film.premiered}</p>
             <img src="/pegi.svg" alt="" />
@@ -103,42 +103,48 @@ const FilmDescription = ({
             href={film.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-yellow-300 underline border-b-2"
+            className=" text-lightJaune underline "
           >
             Plus d'infos
           </a>
         </div>
 
-        <div className="flex flex-col items-center gap-5 text-white">
-          <select
-            id="season-select"
-            className=" flex  py-2 justify-left  bg-black rounded-md focus:outline-none focus:ring-yellow-300 focus:border-yellow-300 sm:text-sm"
-            value={selectedSeason}
-            onChange={(e) => setSelectedSeason(Number(e.target.value))}
-          >
-            {seasons.map((season) => (
-              <option key={season} value={season}>
-                Saison {season}
-              </option>
-            ))}
-          </select>
-          <div className="mt-4">
-            <div className="carousel-wrapper w-full max-w-xl relative flex flex-col gap-4">
-              <Carousel
-                opts={{
-                  align: "start",
-                }}
-                className="w-full max-w-sm"
-              >
-                <CarouselContent className="m-0 flex gap-4 items-stretch ">
-                  {renderEpisodes(episodes)}
-                </CarouselContent>
-                <CarouselPrevious className="hidden md:flex" />
-                <CarouselNext className="hidden md:flex" />
-              </Carousel>
-            </div>
-          </div>
-        </div>
+        <div className="w-full max-w-xl text-white">
+  <div className="flex flex-col gap-5">
+    {/* Alignement du select à gauche */}
+    <select
+      id="season-select"
+      className="py-2 bg-darkBlack rounded-md focus:outline-none focus:ring-yellow-300 focus:border-yellow-300 sm:text-sm"
+      value={selectedSeason}
+      onChange={(e) => setSelectedSeason(Number(e.target.value))}
+    >
+      {seasons.map((season) => (
+        <option key={season} value={season}>
+          Saison {season}
+        </option>
+      ))}
+    </select>
+    
+    {/* Carousel centré */}
+    <div className="w-full flex justify-center">
+      <div className="carousel-wrapper relative flex flex-col gap-4 w-full max-w-xl">
+        <Carousel
+          opts={{
+            align: "start",
+          }}
+          className="w-full"
+        >
+          <CarouselContent className="m-0 flex gap-4 items-stretch">
+            {renderEpisodes(episodes)}
+          </CarouselContent>
+          <CarouselPrevious className="absolute left-0 top-1/2 transform -translate-y-1/2" />
+          <CarouselNext className="absolute right-0 top-1/2 transform -translate-y-1/2" />
+        </Carousel>
+      </div>
+    </div>
+  </div>
+</div>
+
       </div>
     </div>
   );

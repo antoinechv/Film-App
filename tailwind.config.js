@@ -17,6 +17,7 @@ export default {
         darkBlack: "hsl(var(--darkBlack))",
         white30: "hsla(var(--white30))",
         lightJaune:"hsl(var(--LightJaune))",
+        lightGrey:"hsl(var(--Lightgrey))",
 
         card: {
           DEFAULT: "hsl(var(--card))",
