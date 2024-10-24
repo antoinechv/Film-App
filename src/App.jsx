@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import FilmCard from "./components/FilmCard";
 import useFetch from "./hook/UseFetch";
+import Loader from "./components/Loader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import "./App.css";
@@ -16,21 +17,30 @@ import FilmDescription from "./components/FilmDescription";
 const App = () => {
   const [searchQuery, setSearchQuery] = useState("stranger");
   const [submittedQuery, setSubmittedQuery] = useState("stranger");
+  const [idFilm, setIdFilm] = useState(null);
   const [selectedFilm, setSelectedFilm] = useState(null);
+  // const [selectedSeason, setSelectedSeason] = useState(1);
 
   const {
     data: dataShearch,
     isLoading: isLoadingSearch,
     error: errorSearch,
   } = useFetch(`https://api.tvmaze.com/search/shows?q=${submittedQuery}`);
+
   const {
     data: dataSchudle,
     isLoading: isLoadingSchudle,
     error: errorSchudle,
   } = useFetch(`https://api.tvmaze.com/schedule?country=FR`);
 
+  // const {
+  //   data: dataSeasons,
+  //   isLoading: isLoadingSeasons,
+  //   error: errorSeasons,
+  // } = useFetch(`https://api.tvmaze.com/shows/${idFilm}?embed=episodes`);
+
   if (isLoadingSearch) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (errorSearch) {
@@ -40,8 +50,21 @@ const App = () => {
   const filmsSearch = dataShearch?.map((item) => item.show) || [];
   const filmsSchudle = dataSchudle?.map((item) => item.show) || [];
 
+  // const seasons = [];
+  // if (dataSeasons?._embedded?.episodes) {
+  //   dataSeasons._embedded.episodes.forEach((episode) => {
+  //     if (!seasons.includes(episode.season)) {
+  //       seasons.push(episode.season);
+  //     }
+  //   });
+  // }
+  // const episodes = dataSeasons._embedded.episodes.filter(
+  //   (episode) => episode.season === selectedSeason
+  // );
+
   const handleFilmClick = (film) => {
     setSelectedFilm(film);
+    setIdFilm(film.id);
   };
 
   const handleSearchChange = (event) => {
@@ -93,7 +116,10 @@ const App = () => {
             {filmsSchudle.map((film) => (
               <CarouselItem
                 key={film.id}
-                onClick={() => handleFilmClick(film)}
+                onClick={() => {
+                  handleFilmClick(film);
+                  setIdFilm(film.id);
+                }}
                 className=" flex  "
               >
                 <FilmCard film={film} />
@@ -118,6 +144,7 @@ const App = () => {
                 key={film.id}
                 onClick={() => handleFilmClick(film)}
                 className=" flex  "
+                id={film.id}
               >
                 <FilmCard film={film} />
               </CarouselItem>
@@ -128,7 +155,48 @@ const App = () => {
         </Carousel>
       </div>
 
-      {selectedFilm && <FilmDescription film={selectedFilm} />}
+      {/* {selectedFilm && (
+        <>
+          <FilmDescription film={selectedFilm} />
+          <div className="p-4">
+            <label
+              htmlFor="season-select"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Select Season
+            </label>
+            <select
+              id="season-select"
+              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              value={selectedSeason}
+              onChange={(e) => setSelectedSeason(Number(e.target.value))}
+            >
+              {seasons.map((season) => (
+                <option key={season} value={season}>
+                  Season {season}
+                </option>
+              ))}
+            </select>
+
+            <div className="mt-4">
+              <h2 className="text-lg font-medium text-gray-900">Episodes</h2>
+              <ul className="mt-2 space-y-2">
+                {episodes.map((episode) => (
+                  <li
+                    key={episode.id}
+                    className="p-2 border border-gray-300 rounded-md"
+                  >
+                    <h3 className="text-md font-medium text-gray-900">
+                      {episode.name}
+                    </h3>
+                    <p className="text-sm text-gray-600">{episode.summary}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </>
+      )} */}
     </div>
   );
 };

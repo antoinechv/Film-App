@@ -55,7 +55,9 @@ export default {
           4: "hsl(var(--chart-4))",
           5: "hsl(var(--chart-5))",
         },
-      
+        fontFamily: {
+          lato: ["Lato", "sans-serif"],
+        },
       },
       backgroundImage:{
          grad:"var(--gradient)",
