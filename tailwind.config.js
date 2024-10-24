@@ -12,7 +12,7 @@ export default {
       colors: {
         background: "(var(--background))",
         foreground: "hsl(var(--foreground))",
-
+        bgModal: "hsla(var(--bgModal))",
         black: "hsl(var(--black))",
         darkBlack: "hsl(var(--darkBlack))",
         white30: "hsla(var(--white30))",
@@ -59,9 +59,9 @@ export default {
           lato: ["Lato", "sans-serif"],
         },
       },
-      backgroundImage:{
-         grad:"var(--gradient)",
-      }
+      backgroundImage: {
+        grad: "var(--gradient)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
