@@ -59,6 +59,9 @@ export default {
           lato: ["Lato", "sans-serif"],
         },
       },
+      backgroundImage:{
+         grad:"var(--gradient)",
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],

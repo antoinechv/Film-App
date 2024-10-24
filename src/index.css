@@ -6,6 +6,7 @@
 @layer base {
   :root {
     --black :240 6% 22%;
+    --gradient: linear-gradient(180deg, rgba(2,0,36,0.3) 0%, rgba(0,0,2,0) 29%, rgba(0,0,0,0) 64%, rgba(0,0,0,0.8) 100%);
     --darkBlack:240 25% 5%;
     --white: 0 0% 100% 0.306;
     --background: 0 0% 100%;
