@@ -3,11 +3,11 @@ import React from "react";
 import { Card, CardHeader, CardTitle, CardDescription } from "./ui/card";
 const FilmCard = ({ film }) => {
   if (!film) {
-    return null; // or return a loading spinner or placeholder
+    return null;
   }
 
   return (
-    <Card className="flex flex-col gap-2 h-full rounded-2xl p-1 bg-black pb-4 border-none">
+    <Card className="flex flex-col gap-2 h-full rounded-3xl p-2 bg-black pb-4 border-none">
       <div className=" w-32  h-24 overflow-hidden  object-cover rounded-[20px]">
         {film.image && film.image.medium && (
           <img src={film.image.medium} alt={film.name} lassName="" />

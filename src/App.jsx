@@ -15,92 +15,95 @@ const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFilmLoading, setIsFilmLoading] = useState(false);
 
-// Loader state to control its visibility
-const [showLoader, setShowLoader] = useState(true);
+  // Loader state to control its visibility
+  const [showLoader, setShowLoader] = useState(true);
 
-// Simulation of a 3x animation duration (you can adjust the duration)
-useEffect(() => {
-  const loaderDuration = 1400 * 1; // 4000ms per animation x 3 for 3 repetitions
-  const timer = setTimeout(() => {
-    setShowLoader(false);
-  }, loaderDuration);
+  // Simulation of a 3x animation duration (you can adjust the duration)
+  useEffect(() => {
+    const loaderDuration = 1400 * 1; // 4000ms per animation x 3 for 3 repetitions
+    const timer = setTimeout(() => {
+      setShowLoader(false);
+    }, loaderDuration);
 
-  return () => clearTimeout(timer);
-}, []);
+    return () => clearTimeout(timer);
+  }, []);
 
-const {
-  data: dataShearch,
-  isLoading: isLoadingSearch,
-  error: errorSearch,
-} = useFetch(`https://api.tvmaze.com/search/shows?q=${submittedQuery}`);
+  const {
+    data: dataShearch,
+    isLoading: isLoadingSearch,
+    error: errorSearch,
+  } = useFetch(`https://api.tvmaze.com/search/shows?q=${submittedQuery}`);
 
-const {
-  data: dataSchudle,
-  isLoading: isLoadingSchudle,
-  error: errorSchudle,
-} = useFetch(`https://api.tvmaze.com/schedule?country=FR`);
+  const {
+    data: dataSchudle,
+    isLoading: isLoadingSchudle,
+    error: errorSchudle,
+  } = useFetch(`https://api.tvmaze.com/schedule?country=FR`);
 
-const {
-  data: dataSeasons,
-  isLoading: isLoadingSeasons,
-  error: errorSeasons,
-} = useFetch(`https://api.tvmaze.com/shows/${idFilm}?embed=episodes`);
+  const {
+    data: dataSeasons,
+    isLoading: isLoadingSeasons,
+    error: errorSeasons,
+  } = useFetch(`https://api.tvmaze.com/shows/${idFilm}?embed=episodes`);
 
-if (showLoader) {
-  return <Loader />; // Display loader while loading
-}
+  if (showLoader) {
+    return <Loader />;
+  }
 
-if (isLoadingSearch) {
-  return <div>Loading search results...</div>;
-}
+  if (isLoadingSearch) {
+    return <div>Loading search results...</div>;
+  }
 
-if (errorSearch) {
-  return <div>Error: {errorSearch.message}</div>;
-}
+  if (errorSearch) {
+    return <div>Error: {errorSearch.message}</div>;
+  }
 
-const filmsSearch = dataShearch?.map((item) => item.show) || [];
-const filmsSchudle = dataSchudle?.map((item) => item.show) || [];
+  const filmsSearch = dataShearch?.map((item) => item.show) || [];
+  const filmsSchudle = dataSchudle?.map((item) => item.show) || [];
 
-const seasons = [];
-let episodes = [];
-if (dataSeasons?._embedded?.episodes) {
-  dataSeasons._embedded.episodes.forEach((episode) => {
-    if (!seasons.includes(episode.season)) {
-      seasons.push(episode.season);
-    }
-  });
-  episodes = dataSeasons._embedded.episodes.filter(
-    (episode) => episode.season === selectedSeason
-  );
-}
+  const seasons = [];
+  let episodes = [];
+  if (dataSeasons?._embedded?.episodes) {
+    dataSeasons._embedded.episodes.forEach((episode) => {
+      if (!seasons.includes(episode.season)) {
+        seasons.push(episode.season);
+      }
+    });
+    episodes = dataSeasons._embedded.episodes.filter(
+      (episode) => episode.season === selectedSeason
+    );
+  }
 
-const handleFilmClick = (film) => {
-  setSelectedFilm(film);
-  setIdFilm(film.id);
-  setIsModalOpen(true);
-};
+  const handleFilmClick = (film) => {
+    setSelectedFilm(film);
+    setIdFilm(film.id);
+    setIsModalOpen(true);
+  };
 
-const handleSearchChange = (event) => {
-  setSearchQuery(event.target.value);
-};
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
-const handleSearchSubmit = (event) => {
-  event.preventDefault();
-  setSubmittedQuery(searchQuery);
-};
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    setSubmittedQuery(searchQuery);
+  };
+  const handleLogoClick = () => {
+    window.location.reload();
+  };
 
   return (
     <div className="flex flex-col items-center gap-10 bg-darkBlack p-4 min-h-screen h-full">
-      <h1 className="flex w-full ">
-        <img src="/logo.svg" alt="Logo" />
-      </h1>
-      <h2 className="text-white">Find Movies, TV series, and more..</h2>
-
-      <SearchForm
-        searchQuery={searchQuery}
-        handleSearchChange={handleSearchChange}
-        handleSearchSubmit={handleSearchSubmit}
-      />
+      <div className="flex items-center gap-2">
+        <h1 className="flex w-24 " onClick={handleLogoClick}>
+          <img src="/logo.svg" alt="Logo" />
+        </h1>
+        <SearchForm
+          searchQuery={searchQuery}
+          handleSearchChange={handleSearchChange}
+          handleSearchSubmit={handleSearchSubmit}
+        />
+      </div>
 
       <FilmCarousel
         title="Les dernières recherches en FRANCE"

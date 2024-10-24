@@ -10,7 +10,7 @@ const SearchForm = ({
   return (
     <form
       onSubmit={handleSearchSubmit}
-      className="flex w-full max-w-sm items-center gap-5"
+      className="flex w-full max-w-sm items-center md:gap-5 gap-2"
     >
       <Input
         type="text"
@@ -21,9 +21,10 @@ const SearchForm = ({
       />
       <Button
         type="submit"
-        className=" border-yellow-100 hover:bg-yellow-100 hover:text-black text-yellow-100  rounded-3xl"
+        className="border-yellow-100 hover:bg-yellow-100 hover:text-black text-yellow-100 rounded-3xl"
       >
-        Search
+        <span className="hidden md:inline">Search</span>
+        <span className="md:hidden">🔍</span>
       </Button>
     </form>
   );
