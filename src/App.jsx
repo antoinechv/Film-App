@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Modal from "./components/Modal";
-import FilmCard from "./components/FilmCard";
 import useFetch from "./hook/UseFetch";
 import Loader from "./components/Loader";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import "./App.css";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import SearchForm from "./components/SearchForm";
+import FilmCarousel from "./components/FilmCarousel";
 import FilmDescription from "./components/FilmDescription";
 
 const App = () => {
@@ -20,8 +11,9 @@ const App = () => {
   const [submittedQuery, setSubmittedQuery] = useState("stranger");
   const [idFilm, setIdFilm] = useState(null);
   const [selectedFilm, setSelectedFilm] = useState(null);
-  const [selectedSeason, setSelectedSeason] = useState(null);
+  const [selectedSeason, setSelectedSeason] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFilmLoading, setIsFilmLoading] = useState(false);
 
   // Loader state to control its visibility
   const [showLoader, setShowLoader] = useState(true);
@@ -57,6 +49,11 @@ const App = () => {
   if (showLoader) {
     return <Loader />; // Display loader while loading
   }
+  useEffect(() => {
+    if (!isLoadingSeasons) {
+      setIsFilmLoading(false);
+    }
+  }, [isLoadingSeasons]);
 
   if (isLoadingSearch) {
     return <div>Loading search results...</div>;
@@ -83,6 +80,7 @@ const App = () => {
   }
 
   const handleFilmClick = (film) => {
+    setIsFilmLoading(true);
     setSelectedFilm(film);
     setIdFilm(film.id);
     setIsModalOpen(true);
@@ -174,14 +172,18 @@ const App = () => {
       </div>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        {selectedFilm && (
-          <FilmDescription
-            film={selectedFilm}
-            seasons={seasons}
-            selectedSeason={selectedSeason}
-            setSelectedSeason={setSelectedSeason}
-            episodes={episodes}
-          />
+        {isFilmLoading ? (
+          <Loader />
+        ) : (
+          selectedFilm && (
+            <FilmDescription
+              film={selectedFilm}
+              seasons={seasons}
+              selectedSeason={selectedSeason}
+              setSelectedSeason={setSelectedSeason}
+              episodes={episodes}
+            />
+          )
         )}
       </Modal>
     </div>

@@ -73,3 +73,12 @@
     @apply bg-background text-foreground;
   }
 }
+/* styles.css ou un fichier CSS global */
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Masquer la scrollbar pour les navigateurs basés sur WebKit */
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* Masquer la scrollbar pour Internet Explorer et Edge */
+  scrollbar-width: none; /* Masquer la scrollbar pour Firefox */
+}
