@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "./components/Modal";
 import FilmCard from "./components/FilmCard";
 import useFetch from "./hook/UseFetch";
@@ -15,8 +15,6 @@ import {
 } from "@/components/ui/carousel";
 import FilmDescription from "./components/FilmDescription";
 
-
-
 const App = () => {
   const [searchQuery, setSearchQuery] = useState("stranger");
   const [submittedQuery, setSubmittedQuery] = useState("stranger");
@@ -24,6 +22,19 @@ const App = () => {
   const [selectedFilm, setSelectedFilm] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Loader state to control its visibility
+  const [showLoader, setShowLoader] = useState(true);
+
+  // Simulation of a 3x animation duration (you can adjust the duration)
+  useEffect(() => {
+    const loaderDuration = 1300 * 1; // 4000ms per animation x 3 for 3 repetitions
+    const timer = setTimeout(() => {
+      setShowLoader(false);
+    }, loaderDuration);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const {
     data: dataShearch,
@@ -43,12 +54,16 @@ const App = () => {
     error: errorSeasons,
   } = useFetch(`https://api.tvmaze.com/shows/${idFilm}?embed=episodes`);
 
+  if (showLoader) {
+    return <Loader />; // Display loader while loading
+  }
+
   if (isLoadingSearch) {
-    return <Loader />;
+    return <div>Loading search results...</div>;
   }
 
   if (errorSearch) {
-    return <div>Error: {error.message}</div>;
+    return <div>Error: {errorSearch.message}</div>;
   }
 
   const filmsSearch = dataShearch?.map((item) => item.show) || [];
@@ -85,9 +100,9 @@ const App = () => {
   return (
     <div className="flex flex-col items-center gap-10 bg-darkBlack p-4 min-h-screen h-full">
       <h1 className="flex w-full ">
-        <img src="/logo.svg" alt="" />
+        <img src="/logo.svg" alt="Logo" />
       </h1>
-      <h2 className="text-white">Find Movies, Tv series, and more..</h2>
+      <h2 className="text-white">Find Movies, TV series, and more..</h2>
 
       <form
         onSubmit={handleSearchSubmit}
@@ -102,7 +117,7 @@ const App = () => {
         />
         <Button
           type="submit"
-          className=" border-yellow-100 hover:bg-yellow-100 hover:text-black text-yellow-100  rounded-3xl"
+          className="border-yellow-100 hover:bg-yellow-100 hover:text-black text-yellow-100 rounded-3xl"
         >
           Search
         </Button>
@@ -110,7 +125,7 @@ const App = () => {
 
       <div className="carousel-wrapper w-full max-w-xl relative flex flex-col gap-4">
         <h2 className="text-white text-left">
-          Les dernieres recherches en FRANCE
+          Les dernières recherches en FRANCE
         </h2>
         <Carousel
           opts={{
@@ -123,14 +138,14 @@ const App = () => {
               <CarouselItem
                 key={`schedule-${film.id}-${index}`}
                 onClick={() => handleFilmClick(film)}
-                className=" flex  "
+                className="flex"
               >
                 <FilmCard film={film} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden md:flex " />
-          <CarouselNext className="hidden  md:flex" />
+          <CarouselPrevious className="hidden md:flex" />
+          <CarouselNext className="hidden md:flex" />
         </Carousel>
       </div>
 
@@ -144,17 +159,17 @@ const App = () => {
           <CarouselContent>
             {filmsSearch.map((film, index) => (
               <CarouselItem
-                key={`search-${film.id}-${index}`} // Ensure the key is unique
+                key={`search-${film.id}-${index}`}
                 onClick={() => handleFilmClick(film)}
-                className=" flex  "
+                className="flex"
                 id={film.id}
               >
                 <FilmCard film={film} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden md:flex " />
-          <CarouselNext className="hidden  md:flex" />
+          <CarouselPrevious className="hidden md:flex" />
+          <CarouselNext className="hidden md:flex" />
         </Carousel>
       </div>
 

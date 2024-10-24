@@ -49,7 +49,7 @@ const FilmDescription = ({
               film.genres.map((genre, index) => (
                 <span
                   key={index}
-                  className=" bg-yellow-300 p-1 py-[2px] rounded-md text-zinc-700 text-[10px]"
+                  className=" bg-lightJaune py-1 px-2 rounded-sm text-zinc-700 text-[10px]"
                 >
                   {genre}
                 </span>
