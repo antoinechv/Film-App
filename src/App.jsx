@@ -5,10 +5,11 @@ import Loader from "./components/Loader";
 import SearchForm from "./components/SearchForm";
 import FilmCarousel from "./components/FilmCarousel";
 import FilmDescription from "./components/FilmDescription";
+import ShowCard from "./components/ShowCard";
 
 const App = () => {
-  const [searchQuery, setSearchQuery] = useState("stranger");
-  const [submittedQuery, setSubmittedQuery] = useState("stranger");
+  const [searchQuery, setSearchQuery] = useState();
+  const [submittedQuery, setSubmittedQuery] = useState();
   const [idFilm, setIdFilm] = useState(null);
   const [selectedFilm, setSelectedFilm] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState(1);
@@ -39,13 +40,18 @@ const App = () => {
     data: dataSchudle,
     isLoading: isLoadingSchudle,
     error: errorSchudle,
-  } = useFetch(`https://api.tvmaze.com/schedule?country=FR`);
+  } = useFetch(`https://api.tvmaze.com/schedule?country=US`);
 
   const {
     data: dataSeasons,
     isLoading: isLoadingSeasons,
     error: errorSeasons,
   } = useFetch(`https://api.tvmaze.com/shows/${idFilm}?embed=episodes`);
+  const {
+    data: showData,
+    isLoading: isLoadingShow,
+    error: errorShow,
+  } = useFetch(`https://api.tvmaze.com/lookup/shows?thetvdb=81189`);
 
   if (showLoader) {
     return <Loader />;
@@ -95,11 +101,12 @@ const App = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-10 bg-darkBlack p-4 min-h-screen h-full">
-      <div className="flex items-center gap-2">
-        <h1 className="flex w-24 " onClick={handleLogoClick}>
+    <div className="flex flex-col items-center gap-10 bg-darkBlack  min-h-screen h-full overflow-hidden">
+      <div className="fixed z-10 flex items-center md:justify-around w-full gap-2">
+        <h1 className="flex w-24 md:w-64 " onClick={handleLogoClick}>
           <img src="/logo.svg" alt="Logo" />
         </h1>
+
         <SearchForm
           searchQuery={searchQuery}
           handleSearchChange={handleSearchChange}
@@ -107,19 +114,42 @@ const App = () => {
         />
       </div>
 
+      {isLoadingShow ? (
+        <Loader />
+      ) : errorShow ? (
+        <div>Error: {errorShow.message}</div>
+      ) : (
+        <ShowCard show={showData} />
+      )}
       {showLastSearchCarousel && (
         <FilmCarousel
-          title="Les dernières recherches en FRANCE"
+          title="Les dernières recherches aux USA"
           films={filmsSchudle}
           handleFilmClick={handleFilmClick}
         />
       )}
 
-      <FilmCarousel
-        title="Search Results"
-        films={filmsSearch}
-        handleFilmClick={handleFilmClick}
-      />
+      {submittedQuery ? (
+        filmsSearch.length > 0 ? (
+          <FilmCarousel
+            title="Search Results"
+            films={filmsSearch}
+            handleFilmClick={handleFilmClick}
+          />
+        ) : (
+          <span className="text-white">
+            No results found for {submittedQuery}
+          </span>
+        )
+      ) : null}
+
+      {showLastSearchCarousel && (
+        <FilmCarousel
+          title="Actualité"
+          films={filmsSearch}
+          handleFilmClick={handleFilmClick}
+        />
+      )}
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         {isFilmLoading ? (
