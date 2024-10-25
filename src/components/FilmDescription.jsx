@@ -101,7 +101,7 @@ const FilmDescription = ({
             )}
           </div>
           <p className="text-left">
-            <span dangerouslySetInnerHTML={{ __html: film.summary || "N/A" }} />
+            {stripHtmlTagsUsingInnerHTML(film.summary)}
           </p>
           <a
             href={film.url}
@@ -114,6 +114,7 @@ const FilmDescription = ({
         </div>
 
         <div className="w-full  text-white">
+<<<<<<< HEAD
   <div className="flex flex-col gap-5 w-full">
     {/* Alignement du select à gauche */}
     <select
@@ -152,7 +153,45 @@ const FilmDescription = ({
     </div>
   </div>
 </div>
+=======
+          <div className="flex flex-col gap-5 w-full">
+            {/* Alignement du select à gauche */}
+            <select
+              id="season-select"
+              className="py-2 bg-darkBlack rounded-md focus:outline-none focus:ring-yellow-300 focus:border-yellow-300 sm:text-sm"
+              value={selectedSeason}
+              onChange={(e) => setSelectedSeason(Number(e.target.value))}
+            >
+              {seasons.map((season) => (
+                <option key={season} value={season}>
+                  Saison {season}
+                </option>
+              ))}
+            </select>
+>>>>>>> 7f65f132b4bbe1fc6dcac1bf110d0bee7f06e3d7
 
+            {/* Carousel centré */}
+            <div className="w-full flex justify-center">
+              <div className="carousel-wrapper relative flex flex-col gap-4 w-full">
+                <Carousel
+                  opts={{
+                    align: "start",
+                  }}
+                  className="w-full"
+                >
+                  <CarouselContent className="m-0 flex gap-4 items-stretch">
+                    {renderEpisodes(episodes)}
+                  </CarouselContent>
+
+                  <div className="flex items-center justify-center p-4 gap-5">
+                    <CarouselPrevious className=" relative inset-0 translate-x-0 translate-y-0 hidden  md:flex" />
+                    <CarouselNext className="relative inset-0 translate-x-0 translate-y-0 hidden  md:flex" />
+                  </div>
+                </Carousel>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import Loader from "./components/Loader";
 import SearchForm from "./components/SearchForm";
 import FilmCarousel from "./components/FilmCarousel";
 import FilmDescription from "./components/FilmDescription";
+import FilmCard from "./components/FilmCard";
 import ShowCard from "./components/ShowCard";
 
 const App = () => {
@@ -101,9 +102,9 @@ const App = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-10 bg-darkBlack  min-h-screen h-full overflow-hidden">
-      <div className="fixed z-10 flex items-center md:justify-around w-full gap-2">
-        <h1 className="flex w-24 md:w-64 " onClick={handleLogoClick}>
+    <div className="flex flex-col items-center gap-10 bg-darkBlack  min-h-screen h-full overflow-hidden ">
+      <div className="fixed z-30 flex items-center md:justify-between w-full gap-2 md:px-36 px-3 md:flex-row flex-col">
+        <h1 className="flex w-36 md:w-64 " onClick={handleLogoClick}>
           <img src="/logo.svg" alt="Logo" />
         </h1>
 
@@ -114,42 +115,43 @@ const App = () => {
         />
       </div>
 
-      {isLoadingShow ? (
-        <Loader />
-      ) : errorShow ? (
-        <div>Error: {errorShow.message}</div>
-      ) : (
-        <ShowCard show={showData} />
-      )}
       {showLastSearchCarousel && (
-        <FilmCarousel
-          title="Les dernières recherches aux USA"
-          films={filmsSchudle}
-          handleFilmClick={handleFilmClick}
-        />
+        <>
+          <ShowCard show={showData} />
+          <FilmCarousel
+            title="Actualité"
+            films={filmsSearch}
+            handleFilmClick={handleFilmClick}
+          />
+          <FilmCarousel
+            title="Les dernières recherches aux USA"
+            films={filmsSchudle}
+            handleFilmClick={handleFilmClick}
+          />
+        </>
       )}
 
       {submittedQuery ? (
         filmsSearch.length > 0 ? (
-          <FilmCarousel
-            title="Search Results"
-            films={filmsSearch}
-            handleFilmClick={handleFilmClick}
-          />
+          <div className="flex justify-center items-center h-screen">
+            <div className="grid grid-cols-4 items-stretch gap-5  ">
+              {filmsSearch.map((film) => (
+                <div
+                  key={film.id}
+                  onClick={() => handleFilmClick(film)}
+                  className=" flex "
+                >
+                  <FilmCard film={film} />
+                </div>
+              ))}
+            </div>
+          </div>
         ) : (
           <span className="text-white">
             No results found for {submittedQuery}
           </span>
         )
       ) : null}
-
-      {showLastSearchCarousel && (
-        <FilmCarousel
-          title="Actualité"
-          films={filmsSearch}
-          handleFilmClick={handleFilmClick}
-        />
-      )}
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         {isFilmLoading ? (
