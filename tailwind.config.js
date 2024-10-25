@@ -16,8 +16,8 @@ export default {
         black: "hsl(var(--black))",
         darkBlack: "hsl(var(--darkBlack))",
         white30: "hsla(var(--white30))",
-        lightJaune:"hsl(var(--LightJaune))",
-        lightGrey:"hsl(var(--Lightgrey))",
+        lightJaune: "hsl(var(--LightJaune))",
+        lightGrey: "hsl(var(--Lightgrey))",
 
         card: {
           DEFAULT: "hsl(var(--card))",
@@ -63,6 +63,10 @@ export default {
       },
       backgroundImage: {
         grad: "var(--gradient)",
+      },
+      height: {
+        "screen-1/2": "50vh",
+        "screen-3/4": "75vh",
       },
     },
   },

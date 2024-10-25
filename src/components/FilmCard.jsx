@@ -8,9 +8,13 @@ const FilmCard = ({ film }) => {
 
   return (
     <Card className="flex flex-col gap-2 h-full rounded-3xl p-2 bg-black pb-4 border-none">
-      <div className=" w-32  h-24 overflow-hidden  object-cover rounded-[20px]">
+      <div className=" w-32 h-24 md:w-64 ">
         {film.image && film.image.medium && (
-          <img src={film.image.medium} alt={film.name} lassName="" />
+          <img
+            src={film.image.medium}
+            alt={film.name}
+            className=" w-32 h-24 md:w-64 overflow-hidden object-cover rounded-2xl"
+          />
         )}
       </div>
       <CardTitle className=" text-left text-sm text-white">

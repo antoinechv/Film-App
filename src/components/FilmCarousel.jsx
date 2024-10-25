@@ -10,13 +10,13 @@ import FilmCard from "./FilmCard";
 
 const FilmCarousel = ({ title, films, handleFilmClick }) => {
   return (
-    <div className="carousel-wrapper w-full max-w-xl relative flex flex-col gap-4">
+    <div className="w-full max-w-xl md:max-w-6xl relative flex flex-col gap-4">
       <h2 className="text-white text-left">{title}</h2>
       <Carousel
         opts={{
           align: "start",
         }}
-        className="w-full max-w-2xl"
+        className="w-full max-w-2xl md:max-w-6xl"
       >
         <CarouselContent>
           {films.map((film, index) => (
