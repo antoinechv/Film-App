@@ -63,7 +63,7 @@ export default {
       },
       backgroundImage: {
         grad: "var(--gradient)",
-        grad_accueil:"var(--gradient_accueil)",
+        grad_accueil: "var(--gradient_accueil)",
       },
       height: {
         "screen-1/2": "50vh",
