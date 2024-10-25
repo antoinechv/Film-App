@@ -7,6 +7,7 @@
   :root {
     --black :240 6% 22%;
     --gradient: linear-gradient(180deg, rgba(2,0,36,0.3) 0%, rgba(0,0,2,0) 29%, rgba(0,0,0,0) 64%, rgba(0,0,0,0.8) 100%);
+    --gradient_accueil:linear-gradient(90deg, rgba(2,0,36,0) 18%, rgba(0,0,0,0) 64%, rgba(0,0,2,0.6) 83%, rgba(0,0,0,0.6) 97%);
     --LightJaune:61 97% 75%;
     --Lightgrey:240 5% 40%;
     --bgModal: hsla(55, 72%, 68%, 0.706);

@@ -63,6 +63,7 @@ export default {
       },
       backgroundImage: {
         grad: "var(--gradient)",
+        grad_accueil:"var(--gradient_accueil)",
       },
     },
   },

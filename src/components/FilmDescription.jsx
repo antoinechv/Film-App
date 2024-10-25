@@ -109,8 +109,8 @@ const FilmDescription = ({
           </a>
         </div>
 
-        <div className="w-full max-w-xl text-white">
-  <div className="flex flex-col gap-5">
+        <div className="w-full  text-white">
+  <div className="flex flex-col gap-5 w-full">
     {/* Alignement du select à gauche */}
     <select
       id="season-select"
@@ -127,7 +127,7 @@ const FilmDescription = ({
     
     {/* Carousel centré */}
     <div className="w-full flex justify-center">
-      <div className="carousel-wrapper relative flex flex-col gap-4 w-full max-w-xl">
+      <div className="carousel-wrapper relative flex flex-col gap-4 w-full">
         <Carousel
           opts={{
             align: "start",
@@ -137,8 +137,12 @@ const FilmDescription = ({
           <CarouselContent className="m-0 flex gap-4 items-stretch">
             {renderEpisodes(episodes)}
           </CarouselContent>
-          <CarouselPrevious className="absolute left-0 top-1/2 transform -translate-y-1/2" />
-          <CarouselNext className="absolute right-0 top-1/2 transform -translate-y-1/2" />
+         
+          <div className="flex items-center justify-center p-4 gap-5">
+          <CarouselPrevious className=" relative inset-0 translate-x-0 translate-y-0 hidden  md:flex" />
+          <CarouselNext className="relative inset-0 translate-x-0 translate-y-0 hidden  md:flex" />
+          </div>
+      
         </Carousel>
       </div>
     </div>
