@@ -36,7 +36,7 @@ const FilmDescription = ({
   const renderEpisodes = (episodes) => {
     return episodes.map((episode) => (
       <CarouselItem key={episode.id} onClick={() => handleFilmClick(film)}>
-        <div className=" aspect-square w-36">
+        <div className="relative aspect-video h-40 group"> {/* Ajout de la classe "group" pour le hover */}
           <div className="w-full h-full overflow-hidden object-cover rounded-[20px]">
             {episode.image && episode.image.medium && (
               <img
@@ -46,11 +46,15 @@ const FilmDescription = ({
               />
             )}
           </div>
-          <h3 className="text-md font-medium">{episode.name}</h3>
+          {/* Titre caché au départ, qui apparaît au hover */}
+          <h3 className="text-md font-medium absolute bottom-0 left-0 right-0 bg-grad_card bg-opacity-50 text-white p-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            {episode.name}
+          </h3>
         </div>
       </CarouselItem>
     ));
   };
+  
 
   return (
     <div className="text-white bg-darkBlack">
@@ -114,7 +118,7 @@ const FilmDescription = ({
     {/* Alignement du select à gauche */}
     <select
       id="season-select"
-      className="py-2 bg-darkBlack rounded-md focus:outline-none focus:ring-yellow-300 focus:border-yellow-300 sm:text-sm"
+      className="py-2 bg-darkBlack rounded-md focus:outline-none focus:ring-lightJaune focus:border-lightJaune sm:text-sm"
       value={selectedSeason}
       onChange={(e) => setSelectedSeason(Number(e.target.value))}
     >
@@ -132,9 +136,9 @@ const FilmDescription = ({
           opts={{
             align: "start",
           }}
-          className="w-full"
+          className="w-full overflow-visible"
         >
-          <CarouselContent className="m-0 flex gap-4 items-stretch">
+          <CarouselContent className="m-0 flex gap-4 items-stretch h-48">
             {renderEpisodes(episodes)}
           </CarouselContent>
          
