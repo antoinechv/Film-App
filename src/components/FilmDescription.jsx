@@ -114,7 +114,7 @@ const FilmDescription = ({
         </div>
 
         <div className="w-full  text-white">
-<<<<<<< HEAD
+
   <div className="flex flex-col gap-5 w-full">
     {/* Alignement du select à gauche */}
     <select

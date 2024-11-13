@@ -105,7 +105,7 @@ const App = () => {
     <div className="flex flex-col items-center gap-10 bg-darkBlack  min-h-screen h-full overflow-hidden ">
       <div className="fixed z-30 flex items-center md:justify-between w-full gap-2 md:px-36 px-3 md:flex-row flex-col">
         <h1 className="flex w-36 md:w-64 " onClick={handleLogoClick}>
-          <img src="/logo.svg" alt="Logo" />
+          <img src="/Deni-stream/logo.svg" alt="Logo" />
         </h1>
 
         <SearchForm
