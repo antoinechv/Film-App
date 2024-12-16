@@ -73,18 +73,18 @@ const FilmDescription = ({
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold">{film.name}</h2>
           <button className="bg-white/30 p-2 px-4 rounded-full flex items-center gap-3">
-            <img src="/play.svg" alt="" /> Reprendre
+            <img src="./play.svg" alt="" /> Reprendre
           </button>
         </div>
 
         <div className=" border-y-[0.5px] border-lightGrey py-4 flex flex-col gap-4">
           <div className="flex items-center gap-2">
             <p>{film.premiered}</p>
-            <img src="/pegi.svg" alt="" />
+            <img src="./pegi.svg" alt="" />
             <p>
               <strong></strong> {film.runtime} minutes
             </p>
-            <img src="/qualite.svg" alt="" />
+            <img src="./qualite.svg" alt="" />
           </div>
           <div className="flex items-center gap-2">
             {film.genres ? (

@@ -10,7 +10,7 @@ const Modal = ({ isOpen, onClose, children }) => {
           className="sticky top-2 left-full m-2 bg-lightJaune bg-opacity-40 rounded-full text-white hover:bg-red-500 z-20 text-5xl"
           onClick={onClose}
         >
-          <img src="/cross.svg" alt="" />
+          <img src="./cross.svg" alt="" />
         </button>
         {children}
       </div>
