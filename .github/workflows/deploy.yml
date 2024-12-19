@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: "Deploy to GitHub Pages"
 
 on:
   push:
@@ -22,11 +22,11 @@ jobs:
         run: npm install
 
       - name: Build
-        run: npm run build  # Cette commande dépend du framework que vous utilisez
+        run: npm run build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist # Modifiez ceci si vous utilisez un autre répertoire de build
+          publish_dir: ./dist
           publish_branch: gh-pages

@@ -1,5 +1,10 @@
+
+
+
+
+
 {
-  "name": "film-app",
+  "name": "my-project",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,7 +12,10 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "postdeploy": "echo 'Deployment complete!'"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
@@ -39,3 +47,4 @@
     "vite": "^5.4.8"
   }
 }
+
