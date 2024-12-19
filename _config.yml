@@ -1,0 +1,6 @@
+# _config.yml
+
+# Désactive la conversion SCSS
+sass:
+  style: compressed
+  load_paths: []
