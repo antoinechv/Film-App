@@ -1,18 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
 @layer base {
   :root {
-    --black :240 6% 22%;
+    --black: 240 6% 22%;
     --gradient: linear-gradient(180deg, rgba(2,0,36,0.3) 0%, rgba(0,0,2,0) 29%, rgba(0,0,0,0) 64%, rgba(0,0,0,0.8) 100%);
-    --gradient_accueil:linear-gradient(280deg, rgba(2,0,36,0) 18%, rgba(0,0,0,0) 64%, rgba(0,0,2,0.6) 83%, rgba(0,0,0,0.6) 97%);
-    --LightJaune:61 97% 75%;
-    --Lightgrey:240 5% 40%;
+    --gradient_accueil: linear-gradient(280deg, rgba(2,0,36,0) 18%, rgba(0,0,0,0) 64%, rgba(0,0,2,0.6) 83%, rgba(0,0,0,0.6) 97%);
+    --LightJaune: 61 97% 75%;
+    --Lightgrey: 240 5% 40%;
     --bgModal: hsla(55, 72%, 68%, 0.706);
-    --bgModal: 0, 0%, 60%, 0.706;
-    --darkBlack:240 25% 5%;
+    --darkBlack: 240 25% 5%;
     --white: 0 0% 100% 0.306;
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
@@ -40,6 +40,8 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
+  /* Dark mode overrides */
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -66,19 +68,19 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-}
-@layer base {
- 
+
+  /* Global Body Style */
   body {
-   background-color: hsl(var(--darkBlack));
+    background-color: hsl(var(--darkBlack));
   }
 }
-/* styles.css ou un fichier CSS global */
+
+/* Hide scrollbar globally */
 .no-scrollbar::-webkit-scrollbar {
-  display: none; /* Masquer la scrollbar pour les navigateurs basés sur WebKit */
+  display: none;
 }
 
 .no-scrollbar {
-  -ms-overflow-style: none; /* Masquer la scrollbar pour Internet Explorer et Edge */
-  scrollbar-width: none; /* Masquer la scrollbar pour Firefox */
+  -ms-overflow-style: none; /* For IE and Edge */
+  scrollbar-width: none; /* For Firefox */
 }
