@@ -12,7 +12,7 @@ const ShowCard = ({ show }) => {
                 className=" w-screen object-cover"
             />
             <div className="absolute bg-grad_accueil inset-0 h-screen-3/4"></div>
-            <div className="absolute inset-0 md:px-36 px-3 flex  flex-col  justify-center gap-5 z-10 ">
+            <div className="absolute inset-0 md:px-36 px-3 flex  flex-col  justify-center gap-5  ">
                 <h2 className="text-xl font-bold">{show.name}</h2>
                 <p className="w-2/3 md:w-1/2 line-clamp-2">
                     {stripHtmlTagsUsingInnerHTML(show.summary)}

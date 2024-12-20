@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 import path from "path";
 
 export default defineConfig({
-  base: "/Film-App/",
+  base: "/Deni-stream/",
   plugins: [react()],
   resolve: {
     alias: {
